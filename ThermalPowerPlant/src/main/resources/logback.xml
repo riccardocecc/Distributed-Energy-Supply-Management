@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Disabilita i log di debug di gRPC e Netty -->
+    <logger name="io.grpc" level="WARN"/>
+    <logger name="io.netty" level="WARN"/>
+
+    <!-- Mantieni i tuoi log dell'applicazione -->
+    <logger name="desm" level="INFO"/>
+
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+    </root>
+</configuration>

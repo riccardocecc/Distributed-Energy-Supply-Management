@@ -1,0 +1,70 @@
+syntax = "proto3";
+
+
+package desm.proto.powerplant;
+
+// Servizio per la comunicazione tra centrali termiche
+service PowerPlantService {
+  // Presentazione di una nuova centrale alle altre centrali
+  rpc introducePlant(IntroducePlantRequest) returns (IntroducePlantResponse);
+
+  // Passaggio del token di elezione nell'anello
+  rpc passElectionToken(ElectionMessage) returns (ElectionResponse);
+
+  rpc passToken(stream ElectionMessage) returns (ElectionResponse);
+
+}
+
+// Messaggio per la presentazione di una nuova centrale
+message IntroducePlantRequest {
+  string plant_id = 1;
+  string address = 2;
+  int32 port = 3;
+  PlantInfo successor = 4;
+  PlantInfo predecessor = 5;
+  string propagator_id = 6;
+}
+
+message IntroducePlantResponse {
+  string plant_id = 1;
+  bool success = 2;
+  string message = 3;
+}
+
+// Messaggi per l'algoritmo di elezione Chang-Roberts
+message ElectionMessage {
+  string sender_id = 1;       // ID della centrale corrente che passa il messaggio
+  double price_offered = 2;    // Prezzo offerto dalla centrale iniziatrice
+  string energy_request_id = 3; // ID della richiesta energetica
+  int64 timestamp = 4;         // Timestamp dell'inizio elezione
+  double provider_kwh = 5;
+  ElectionType election_type = 6; // Tipo di messaggio di elezione
+}
+
+enum ElectionType {
+  ELECTION = 0;    // Messaggio di elezione normale
+  ELECTED = 1;     // Messaggio che annuncia il vincitore
+  PROCESSED = 2;
+}
+
+enum ElectionResponseType{
+  IN_PROGRESS = 0;
+  ENDED = 1;
+  ERROR = 2;
+}
+
+message ElectionResponse {
+  bool success = 1;
+  string message = 2;
+  ElectionResponseType responseType = 3;
+}
+
+// Informazioni di una centrale termica
+message PlantInfo {
+  string plant_id = 1;
+  string address = 2;
+  int32 port = 3;
+  bool is_busy = 4;           // Indica se sta gestendo una richiesta
+  int64 last_seen = 5;        // Ultimo timestamp di contatto
+}
+

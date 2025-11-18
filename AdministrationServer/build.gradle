@@ -1,0 +1,27 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '2.4.0'
+    id "com.google.protobuf" version "0.8.10"
+    id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+}
+
+group = 'org.example'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.9.1')
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    implementation 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.5'
+    compile group: 'com.google.protobuf', name: 'protobuf-java', version: '3.13.0'
+    compile group: 'io.grpc', name: 'grpc-all', version: '1.25.0'
+    implementation project(path: ':Common')
+}
+
+test {
+    useJUnitPlatform()
+}

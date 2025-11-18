@@ -1,0 +1,16 @@
+plugins {
+    id 'java'  // Usa java-library invece di java per esportare meglio le API
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Aggiungi eventuali dipendenze del modulo Common
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.1'
+}
+
+test {
+    useJUnitPlatform()
+}
