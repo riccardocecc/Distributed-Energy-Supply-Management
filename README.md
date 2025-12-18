@@ -180,7 +180,7 @@ All broadcast communications between plants must be executed in parallel, not se
 - Plant gRPC: Specified at startup
 - MQTT: 1883
 
-## Project Structure Recommendations
+## Project Structure
 
 ```
 desm/
@@ -196,3 +196,4 @@ desm/
 
 
 *This project is part of the Distributed and Pervasive Systems Lab Course - May 2025*
+
